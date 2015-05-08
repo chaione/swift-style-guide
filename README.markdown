@@ -27,8 +27,8 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
   * [Syntactic Sugar](#syntactic-sugar)
 * [Control Flow](#control-flow)
 * [Semicolons](#semicolons)
+* [Grouping](#grouping)
 * [Language](#language)
-* [Smiley Face](#smiley-face)
 * [Credits](#credits)
 
 
@@ -120,10 +120,7 @@ let myClass = MyModule.UsefulClass()
 
 ## Spacing
 
-* Indent using 2 spaces rather than tabs to conserve space and help prevent line wrapping. Be sure to set this preference in Xcode as shown below:
-
-  ![Xcode indent settings](screens/indentation.png)
-
+* Use Xcode's default spacing: Spaces, tab with 4 spaces, indent with 4 spaces.
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
 * Tip: You can re-indent by selecting some code (or ⌘A to select all) and then Control-I (or Editor\Structure\Re-Indent in the menu). Some of the Xcode template code will have 4-space tabs hard coded, so this is a good way to fix that.
 
@@ -152,6 +149,8 @@ else {
 ## Comments
 
 When they are needed, use comments to explain **why** a particular piece of code does something. Comments must be kept up-to-date or deleted.
+
+Never leave commented blocks of code.
 
 Avoid block comments inline with code, as the code should be as self-documenting as possible. *Exception: This does not apply to those comments used to generate documentation.*
 
@@ -217,52 +216,29 @@ The example above demonstrates the following style guidelines:
 
 ### Use of Self
 
-For conciseness, avoid using `self` since Swift does not require it to access an object's properties or invoke its methods.
-
-Use `self` when required to differentiate between property names and arguments in initializers, and when referencing properties in closure expressions (as required by the compiler):
+Always use `self` when possible. Although Xcode's syntax highlighting makes distinguishing easier, the use of `self` makes it even easier. The distinguising comes in with local variables vs properties, and global functions vs instance/class functions/methods:
 
 ```swift
 class BoardLocation {
-  let row: Int, column: Int
-
-  init(row: Int, column: Int) {
-    self.row = row
-    self.column = column
-    
-    let closure = {
-      println(self.row)
-    }
-  }
-}
-```
-
-### Protocol Conformance
-
-When adding protocol conformance to a class, prefer adding a separate class extension for the protocol methods. This keeps the related methods grouped together with the protocol and can simplify instructions to add a protocol to a class with its associated methods.
-
-Also, don't forget the `// MARK: -` comment to keep things well-organized!
-
-**Preferred:**
-```swift
-class MyViewcontroller: UIViewController {
-  // class stuff here
-}
-
-// MARK: - UITableViewDataSource
-extension MyViewcontroller: UITableViewDataSource {
-  // table view data source methods
-}
-
-// MARK: - UIScrollViewDelegate
-extension MyViewcontroller: UIScrollViewDelegate {
-  // scroll view delegate methods
-}
-```
-
-**Not Preferred:**
-```swift
-class MyViewcontroller: UIViewController, UITableViewDataSource, UIScrollViewDelegate {
-  // all methods
+	let row: Int, column: Int
+	
+	init(row: Int, column: Int) {
+		self.row = row
+		self.column = column
+		
+		let closure = {
+			println(self.row)
+		}
+	}
+	
+	func printProperties() {
+		self.privatePrintProperties()
+	}
+	
+	private func privatePrintProperties() {
+		println(self.row)
+		println(self.column)
+	}
 }
 ```
 
@@ -288,19 +264,10 @@ var diameter: Double {
 
 ## Function Declarations
 
-Keep short function declarations on one line including the opening brace:
+Keep function declarations on one line including the opening brace:
 
 ```swift
 func reticulateSplines(spline: [Double]) -> Bool {
-  // reticulate code goes here
-}
-```
-
-For functions with long signatures, add line breaks at appropriate points and add an extra indent on subsequent lines:
-
-```swift
-func reticulateSplines(spline: [Double], adjustmentFactor: Double,
-    translateConstant: Int, comment: String) -> Bool {
   // reticulate code goes here
 }
 ```
@@ -468,7 +435,7 @@ Prefer the shortcut versions of type declarations over the full generics syntax.
 **Preferred:**
 ```swift
 var deviceModels: [String]
-var employees: [Int: String]
+var employees: [Int : String]
 var faxNumber: Int?
 ```
 
@@ -528,6 +495,20 @@ let swift = "not a scripting language";
 
 **NOTE**: Swift is very different to JavaScript, where omitting semicolons is [generally considered unsafe](http://stackoverflow.com/questions/444080/do-you-recommend-using-semicolons-after-every-statement-in-javascript)
 
+## Grouping
+
+Mark protocol methods with their actual protocol name.
+
+**Preferred:**
+```swift
+// MARK: - UITableViewDataSource.
+```
+
+**Not Preferred:**
+```swift
+// MARK: - Table View Data Source
+```
+
 ## Language
 
 Use US English spelling to match Apple's API.
@@ -541,20 +522,6 @@ let color = "red"
 ```swift
 let colour = "red"
 ```
-
-## Smiley Face
-
-Smiley faces are a very prominent style feature of the raywenderlich.com site! It is very important to have the correct smile signifying the immense amount of happiness and excitement for the coding topic. The closing square bracket `]` is used because it represents the largest smile able to be captured using ASCII art. A closing parenthesis `)` creates a half-hearted smile, and thus is not preferred.
-
-**Preferred:**
-```
-:]
-```
-
-**Not Preferred:**
-```
-:)
-```  
 
 
 ## Credits
