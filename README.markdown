@@ -15,7 +15,6 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
 * [Comments](#comments)
 * [Classes and Structures](#classes-and-structures)
   * [Use of Self](#use-of-self)
-  * [Protocol Conformance](#protocol-conformance)
   * [Computed Properties](#computed-properties)
 * [Function Declarations](#function-declarations)
 * [Closure Expressions](#closure-expressions)
