@@ -120,7 +120,7 @@ let myClass = MyModule.UsefulClass()
 
 ## Spacing
 
-* Indent using Xcode's default 4 spaces (U.S. tabs). If your defaults do not use 4 spaces, be sure to set this preference in Xcode as shown below:
+* Indent using Xcode's default 4 spaces. If your defaults do not use 4 spaces, be sure to set this preference in Xcode as shown below:
 
   ![Xcode indent settings](screens/default_xcode_spacing.png)
 
