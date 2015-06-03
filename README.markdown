@@ -96,7 +96,7 @@ enum Shape {
 
 ## Groups
 
-Separate the following code groups with newlines and a group marker: constants, variables, outlets, methods, and methods that conform to a specific protocol. Methods that are relative to each other may also be grouped together. Group names in the `MARK` comment should be short and concise, and groups that pertain to certain APIs or protocols should use the API or protocol name as the comment to make use of Xcode's auto-linking. Overall, it's best to use the `// MARK: -` format since it creates a line to separate methods in the symbol navigator.
+Separate the following code groups with newlines and a group marker: constants, variables, outlets, methods, and methods that conform to a specific protocol. Methods that are relative to each other may also be grouped together. Group names in the `MARK` comment should be short and concise, and groups that pertain to certain APIs or protocols should use the API or protocol name as the comment to make use of Xcode's auto-linking. Overall, it's best to use the `// MARK: -` format since it creates a line to separate methods in the symbol navigator. Groups should be further ordered by public, internal, and then private items.
 
 **Preferred:**
 
@@ -105,7 +105,8 @@ class CommentViewController : UIViewController, UITextViewDelegate {
 
   // MARK: - Constants
 
-  private let titleSpace = CGFloat(16)
+  public let titleSpace = CGFloat(16)
+  interal let maxCommentLength = 30
   private let commentHeight = CGFloat(15)
 
   // MARK: - Variables
@@ -116,7 +117,7 @@ class CommentViewController : UIViewController, UITextViewDelegate {
 
   // MARK: - Outlets
 
-  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet public weak var commentLabel: UILabel!
   @IBOutlet private weak var previousCommentLabel: UILabel!
   @IBOutlet private weak var tableView: UITableView!
 
@@ -133,6 +134,16 @@ class CommentViewController : UIViewController, UITextViewDelegate {
     ...
   }
 
+  // MARK: - View Setup
+
+  func setupComments() {
+    adjustLabelsIfNecessary()
+    ...
+  }
+
+  private func adjustLabelsIfNecessary() {
+    ...
+  }
 
   // MARK: - UITableViewDelegate
 
