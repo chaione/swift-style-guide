@@ -84,10 +84,14 @@ Variables, constants, and methods should be marked as private unless exposure is
 
 ```swift
 class GrapeBunch {
+  // MARK: - Constants
   private let initialNumberOfGrapes
+
+  // MARK: - Variables
   var numberOfGrapes = initialNumberOfGrapes
   weak var delegate: GrapeBunchDelegate?
 
+  // MARK: - Methods
   private func rotGrape(grape: Grape) {
     removeGrape()
     delegate?.grapeHasRotted(grape, inBunch: self)
