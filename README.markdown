@@ -85,6 +85,25 @@ class Guideline {
 }
 ```
 
+Variables, constants, and methods should be marked as private unless exposure is necessary.
+
+```swift
+class GrapeBunch {
+  private let initialNumberOfGrapes
+  var numberOfGrapes = initialNumberOfGrapes
+  weak var delegate: GrapeBunchDelegate?
+
+  private func rotGrape(grape: Grape) {
+    removeGrape()
+    delegate?.grapeHasRotted(grape, inBunch: self)
+  }
+
+  func removeGrape() {
+    numberOfGrapes--
+  }
+}
+```
+
 ### Enumerations
 
 Use UpperCamelCase for enumeration values:
