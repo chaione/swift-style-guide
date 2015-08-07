@@ -79,6 +79,25 @@ class Guideline {
 }
 ```
 
+Variables, constants, and methods should be marked as private unless exposure is necessary.
+
+```swift
+class GrapeBunch {
+  private let initialNumberOfGrapes
+  var numberOfGrapes = initialNumberOfGrapes
+  weak var delegate: GrapeBunchDelegate?
+
+  private func rotGrape(grape: Grape) {
+    removeGrape()
+    delegate?.grapeHasRotted(grape, inBunch: self)
+  }
+
+  func removeGrape() {
+    numberOfGrapes--
+  }
+}
+```
+
 ### Enumerations
 
 Use UpperCamelCase for enumeration values:
@@ -89,6 +108,76 @@ enum Shape {
   case Square
   case Triangle
   case Circle
+}
+```
+
+
+## Groups
+
+Separate the following code groups with newlines and a group marker: constants, variables, outlets, methods, and methods that conform to a specific protocol. Methods that are relative to each other may also be grouped together. Group names in the `MARK` comment should be short and concise, and groups that pertain to certain APIs or protocols should use the API or protocol name as the comment to make use of Xcode's auto-linking. Overall, it's best to use the `// MARK: -` format since it creates a line to separate methods in the symbol navigator. Groups should be further ordered by public, internal, and then private items.
+
+**Preferred:**
+
+```swift
+class CommentViewController : UIViewController, UITextViewDelegate {
+
+  // MARK: - Constants
+
+  public let titleSpace = CGFloat(16)
+  interal let maxCommentLength = 30
+  private let commentHeight = CGFloat(15)
+
+  // MARK: - Variables
+
+  var commentText: String?
+  var previousComment: String?
+  weak var delegate: DSXCommentViewControllerDelegate?
+
+  // MARK: - Outlets
+
+  @IBOutlet public weak var commentLabel: UILabel!
+  @IBOutlet private weak var previousCommentLabel: UILabel!
+  @IBOutlet private weak var tableView: UITableView!
+
+  // MARK: - View Lifecycle
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    ...
+  }
+
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+
+    ...
+  }
+
+  // MARK: - View Setup
+
+  func setupComments() {
+    adjustLabelsIfNecessary()
+    ...
+  }
+
+  private func adjustLabelsIfNecessary() {
+    ...
+  }
+
+  // MARK: - UITableViewDelegate
+
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    ...
+  }
+
+  // MARK: - UITextViewDelegate
+
+  func textViewDidChange(textView: UITextView) {
+    ...
+  }
+
+  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    ...
+  }
 }
 ```
 
@@ -119,9 +208,9 @@ let myClass = MyModule.UsefulClass()
 
 ## Spacing
 
-* Indent using 2 spaces rather than tabs to conserve space and help prevent line wrapping. Be sure to set this preference in Xcode as shown below:
+* Indent using Xcode's default 4 spaces. If your defaults do not use 4 spaces, be sure to set this preference in Xcode as shown below:
 
-  ![Xcode indent settings](screens/indentation.png)
+  ![Xcode indent settings](screens/default_xcode_spacing.png)
 
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
 * Tip: You can re-indent by selecting some code (or ⌘A to select all) and then Control-I (or Editor\Structure\Re-Indent in the menu). Some of the Xcode template code will have 4-space tabs hard coded, so this is a good way to fix that.
@@ -218,29 +307,20 @@ The example above demonstrates the following style guidelines:
 
 ### Use of Self
 
-Always use `self` when possible. Although Xcode's syntax highlighting makes distinguishing easier, the use of `self` makes it even easier. The distinguising comes in with local variables vs properties, and global functions vs instance/class functions/methods:
+For conciseness, avoid using `self` since Swift does not require it to access an object's properties or invoke its methods.
 
 ```swift
 class BoardLocation {
-	let row: Int, column: Int
-	
-	init(row: Int, column: Int) {
-		self.row = row
-		self.column = column
-		
-		let closure = {
-			println(self.row)
-		}
-	}
-	
-	func printProperties() {
-		self.privatePrintProperties()
-	}
-	
-	private func privatePrintProperties() {
-		println(self.row)
-		println(self.column)
-	}
+  let row: Int, column: Int
+
+  init(row: Int, column: Int) {
+    self.row = row
+    self.column = column
+    
+    let closure = {
+      println(self.row)
+    }
+  }
 }
 ```
 
@@ -266,10 +346,19 @@ var diameter: Double {
 
 ## Function Declarations
 
-Keep function declarations on one line including the opening brace:
+Keep short function declarations on one line including the opening brace:
 
 ```swift
 func reticulateSplines(spline: [Double]) -> Bool {
+  // reticulate code goes here
+}
+```
+
+For functions with long signatures, add line breaks at appropriate points and add an extra indent on subsequent lines:
+
+```swift
+func reticulateSplines(spline: [Double], adjustmentFactor: Double,
+    translateConstant: Int, comment: String) -> Bool {
   // reticulate code goes here
 }
 ```
