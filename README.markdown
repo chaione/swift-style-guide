@@ -376,6 +376,7 @@ func reticulateSplines(spline: [Double], adjustmentFactor: Double,
 Use trailing closure syntax only if there's a single closure expression parameter at the end of the argument list. Give the closure parameters descriptive names.
 
 **Preferred:**
+
 ```swift
 UIView.animateWithDuration(1.0) {
   self.myView.alpha = 0
@@ -392,6 +393,7 @@ UIView.animateWithDuration(1.0,
 ```
 
 **Not Preferred:**
+
 ```swift
 UIView.animateWithDuration(1.0, animations: {
   self.myView.alpha = 0
@@ -413,6 +415,32 @@ attendeeList.sort { a, b in
 }
 ```
 
+To condense the closure even further, remove any `parentheses` and unless the closure returns something other than `Void`, remove `arrows(->)` as well.
+
+**Preferred:**
+
+```swift
+let action = UIAlertAction(title: "Cancel", style: .Cancel) { alertAction in
+    //Code
+}
+```
+
+**Not Preferred:**
+
+```swift
+let action = UIAlertAction(title: "Cancel", style: .Cancel) { (alertAction) -> () in
+    //Code
+}
+
+let action = UIAlertAction(title: "Cancel", style: .Cancel) { (alertAction) -> Void in
+    //Code
+}
+
+let action = UIAlertAction(title: "Cancel", style: .Cancel) { alertAction -> Void in
+    //Code
+}
+
+```
 
 ## Types
 
