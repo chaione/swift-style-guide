@@ -415,29 +415,52 @@ attendeeList.sort { a, b in
 }
 ```
 
-To condense the closure even further, remove any `parentheses` and unless the closure returns something other than `Void`, remove `arrows(->)` as well.
+To condense the closure even further, remove any `parentheses` and unless the closure returns something other than `Void`, remove the return arrow (`->`) as well.
+
+```swift
+// Closure with return value example
+func sumToString(first: Int, _ second: Int, completion:(String -> String)) -> String {
+    let sumString = "\(first) + \(second) = \(first + second)"
+    return completion(sumString)
+}
+
+// Closure with NO return value example
+func sum(first: Int, _ second: Int, completion:String -> Void) {
+    let sumString = "\(first) + \(second) = \(first + second)"
+    completion(sumString)
+}
+```
 
 **Preferred:**
 
 ```swift
-let action = UIAlertAction(title: "Cancel", style: .Cancel) { alertAction in
-    //Code
+let returnString = sumToString(1, 2) { sumString -> String in
+    return sumString
 }
+print(returnString) // 1 + 2 = 3
+
+sum(4, 6) { string in
+    print(string) // "4 + 6 = 10"
+    return
+}
+
 ```
 
 **Not Preferred:**
 
 ```swift
-let action = UIAlertAction(title: "Cancel", style: .Cancel) { (alertAction) -> () in
-    //Code
+let returnString = sumToString(1, 2) { (sumString) -> String in
+    return sumString
 }
 
-let action = UIAlertAction(title: "Cancel", style: .Cancel) { (alertAction) -> Void in
-    //Code
+sum(4, 6) { (string) in
+    print(string)
+    return
 }
 
-let action = UIAlertAction(title: "Cancel", style: .Cancel) { alertAction -> Void in
-    //Code
+sum(4, 6) { (string) -> () in
+    print(string)
+    return
 }
 
 ```
