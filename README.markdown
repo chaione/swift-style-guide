@@ -376,6 +376,7 @@ func reticulateSplines(spline: [Double], adjustmentFactor: Double,
 Use trailing closure syntax only if there's a single closure expression parameter at the end of the argument list. Give the closure parameters descriptive names.
 
 **Preferred:**
+
 ```swift
 UIView.animateWithDuration(1.0) {
   self.myView.alpha = 0
@@ -392,6 +393,7 @@ UIView.animateWithDuration(1.0,
 ```
 
 **Not Preferred:**
+
 ```swift
 UIView.animateWithDuration(1.0, animations: {
   self.myView.alpha = 0
@@ -413,6 +415,55 @@ attendeeList.sort { a, b in
 }
 ```
 
+To condense the closure even further, remove any `parentheses` and unless the closure returns something other than `Void`, remove the return arrow (`->`) as well.
+
+```swift
+// Closure with return value example
+func sumToString(first: Int, _ second: Int, completion:(String -> String)) -> String {
+    let sumString = "\(first) + \(second) = \(first + second)"
+    return completion(sumString)
+}
+
+// Closure with NO return value example
+func sum(first: Int, _ second: Int, completion:String -> Void) {
+    let sumString = "\(first) + \(second) = \(first + second)"
+    completion(sumString)
+}
+```
+
+**Preferred:**
+
+```swift
+let returnString = sumToString(1, 2) { sumString -> String in
+    return sumString
+}
+print(returnString) // 1 + 2 = 3
+
+sum(4, 6) { string in
+    print(string) // "4 + 6 = 10"
+    return
+}
+
+```
+
+**Not Preferred:**
+
+```swift
+let returnString = sumToString(1, 2) { (sumString) -> String in
+    return sumString
+}
+
+sum(4, 6) { (string) in
+    print(string)
+    return
+}
+
+sum(4, 6) { (string) -> () in
+    print(string)
+    return
+}
+
+```
 
 ## Types
 
