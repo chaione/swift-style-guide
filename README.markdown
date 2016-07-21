@@ -34,13 +34,15 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
 
 ## Naming
 
-Use descriptive names with camel case for classes, methods, variables, etc. Class names should be capitalized, while method names and variables should start with a lower case letter. Global constants, however, should start with an upper case letter and may be referenced with a project module to avoid name collision.
+Use descriptive names with camel case for classes, methods, variables, etc. Class names should be capitalized, while method names and variables should start with a lower case letter. Global constants, however, should start with an upper case letter and may be referenced with a project module to avoid name collision. Acronyms and initialisms that commonly appear as all upper case in American English should be uniformly up- or down-cased according to case conventions.
 
 **Preferred:**
 
 ```swift
 let SomeGlobalConstant = 123.456
 private let maximumWidgetCount = 100
+var utf8Bytes: [UTF8.CodeUnit]
+var userSMTPServer: SecureSMTPServer
 
 class WidgetContainer {
   var widgetButton: UIButton
@@ -56,6 +58,8 @@ var myValue = ProjectModuleName.SomeGlobalConstant
 ```swift
 let SOME_GLOBAL_CONSTANT = 123.456
 let MAX_WIDGET_COUNT = 100
+var uTF8Bytes: [UTF8.CodeUnit]
+var userSmtpServer: SecureSMTPServer
 
 class app_widgetContainer {
   var wBut: UIButton
