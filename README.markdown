@@ -58,6 +58,8 @@ var myValue = ProjectModuleName.SomeGlobalConstant
 ```swift
 let SOME_GLOBAL_CONSTANT = 123.456
 let MAX_WIDGET_COUNT = 100
+var utf8Bytes: [UTF8.CodeUnit]
+var userSmtpServer: SecureSMTPServer
 
 class app_widgetContainer {
   var wBut: UIButton
