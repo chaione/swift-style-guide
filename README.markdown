@@ -351,6 +351,22 @@ var diameter: Double {
 }
 ```
 
+Prefer computed properties over non-mutating, returning functions.
+
+**Preferred:**
+```swift
+var diameter: Double {
+  return radius * 2
+}
+```
+
+**Not Preferred:**
+```swift
+func diameter() -> Double {
+    return radius * 2
+}
+```
+
 ## Function Declarations
 
 Keep short function declarations on one line including the opening brace:
